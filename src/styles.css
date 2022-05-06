@@ -1,1 +1,79 @@
-/* You can add global styles to this file, and also import other style files */
+/* General */
+.Main {
+  min-height: 68%;
+}
+.HeaderArea {
+  background: url('https://www.fh-ooe.at/fileadmin/user_upload/hagenberg/studieren/campus/pics/fhooe-hagenberg-studieren-leben-am-campus-fhgebaeude-fh1.jpg')
+  rgba(50, 50, 50, 0.5) no-repeat center center;
+  background-size: cover;
+  opacity: 0.95;
+  padding-bottom: 10em;
+  padding-top: 10em;
+  background-blend-mode: multiply;
+}
+.HeaderArea * h1 {
+  text-shadow: 1px 1px 13px black !important;
+}
+.Main {
+  padding: 3em 0 3em 0 !important;
+}
+.Mainmenu {
+  margin-bottom: 0 !important;
+}
+
+/* List */
+.LearningOffer_ListItem {
+  background: rgba(0,0,0,0);
+  transition: background 0.5s;
+}
+.LearningOffer_ListItem:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/* Text */
+.LearningOffer_Accepted,
+.LearningOffer_Created {
+  margin-top: 0.5em;
+}
+.LearningOffer_Accepted {
+  color: #21BA45;
+}
+.LearningOffer_Created {
+  color: #0E6EB8;
+}
+
+/* Detail */
+.LearningOffer_Detail_Description,
+.LearningOffer_Detail_Dates {
+  margin: 1em 0 1em 0;
+}
+.LearningOffer_Detail_Description {
+  width: 70%;
+}
+
+/* Login */
+.LoginForm, .RegistrationForm, .CreateOfferForm, .EditOfferForm {
+  padding: 2em 30% 2em 30% !important;
+}
+.LoginForm * button.SubmitBtn,
+.RegistrationForm * button.SubmitBtn,
+.CreateOfferForm * button.SubmitBtn,
+.EditOfferForm * button.SubmitBtn {
+  margin-top: 2em !important;
+}
+
+.AvailableDate {
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+/* Overrides of Semantic UI */
+.pusher {
+  height: 100% !important;
+}
+.ui.button {
+  margin: 0.25em !important;
+}

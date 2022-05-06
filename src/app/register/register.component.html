@@ -1,0 +1,57 @@
+<div class="ui container Main">
+  <h2 class="ui header aligned center">Im Nachhilfeportal registrieren</h2>
+  <div class="ui segment raised RegistrationForm">
+    <form class="ui form">
+      <div class="ui middle aligned padded stackable grid">
+        <div class="two column row">
+          <div class="column">
+            <div class="ui field center aligned grid">
+              <div><i class="icon graduation" style="display: block; margin-bottom: 0.5em; font-size: 2em;"></i></div>
+              <div class="ui radio checkbox">
+                <input type="radio" name="usertype" id="tutor" checked="" class="hidden">
+                <label for="tutor">Nachhilfe anbieten</label>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui field center aligned grid">
+              <div><i class="icon binoculars" style="display: block; margin-bottom: 0.5em; font-size: 2em;"></i></div>
+              <div class="ui radio checkbox">
+                <input type="radio" name="usertype" id="learner" checked="" class="hidden">
+                <label for="learner">Nachhilfe suchen</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+      <div class="field">
+        <label>E-Mail Adresse*</label>
+        <input type="text" name="email" placeholder="max.muster@gmail.com">
+      </div>
+      <div class="field">
+        <label>Passwort*</label>
+        <input type="password" name="password" placeholder="*********">
+      </div>
+      <div class="field">
+        <label>Vorname*</label>
+        <input type="text" name="firstname" placeholder="Max">
+      </div>
+      <div class="field">
+        <label>Nachname*</label>
+        <input type="text" name="lastname" placeholder="Muster">
+      </div>
+      <div class="field">
+        <label>Telefonnummer</label>
+        <input type="number" name="telephone" placeholder="0049 175 1572718">
+      </div>
+      <div class="field">
+        <label>URL zu Profilbild (quadratisch)</label>
+        <input type="text" name="profil" placeholder="https://meinprofilbild.com">
+      </div>
+      <div class="ui center aligned grid">
+        <button class="ui button primary SubmitBtn" type="submit">Registrieren <i class="icon right sign-in"></i></button>
+      </div>
+    </form>
+  </div>
+</div>

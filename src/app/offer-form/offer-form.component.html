@@ -1,0 +1,110 @@
+<div class="ui container Main">
+  <h2 class="ui header aligned center">Nachhilfeangebot erstellen</h2>
+
+  <div class="ui segment raised CreateOfferForm">
+    <form class="ui form">
+      <div class="grouped fields" style="margin-bottom: 2em;">
+        <label>Bitte wähle eine Lehrveranstaltung aus, zu der du Nachhilfe anbieten möchtest!</label>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="whm" class="hidden">
+            <label for="whm">Web und Hypermedia (1.Semester)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="oop" class="hidden">
+            <label for="oop">Objektorientierte Programmierung (2.Semester)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="cms" class="hidden">
+            <label for="cms">Content Management Systeme (3.Semester)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="ele" class="hidden">
+            <label for="ele">E-Learning (3.Semester)</label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="description">Bitte beschreibe kurz dein Nachhilfeangebot!</label>
+        <textarea id="description"></textarea>
+      </div>
+      <div class="field">
+        <label>Meine verfügbaren Termine</label>
+        <div class="AvailableDate">
+          <div><label for="date_at_1">Am</label><input id="date_at_1" type="date"></div>
+          <div><label for="date_from_1">Von</label><input id="date_from_1" type="time"></div>
+          <div><label for="date_to_1">Bis</label><input id="date_to_1" type="time"></div>
+        </div>
+        <div class="AvailableDate">
+          <div><label for="date_at_2">Am</label><input id="date_at_2" type="date"></div>
+          <div><label for="date_from_2">Von</label><input id="date_from_2" type="time"></div>
+          <div><label for="date_to_2">Bis</label><input id="date_to_2" type="time"></div>
+        </div>
+        <button class="ui icon button grey small"><i class="icon add"></i></button>
+      </div>
+      <div class="ui center aligned grid">
+        <button class="ui button green SubmitBtn" type="submit"><i class="icon left add"></i>Angebot erstellen</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="ui segment raised EditOfferForm">
+    <form class="ui form">
+      <div class="grouped fields" style="margin-bottom: 2em;">
+        <label>Bitte wähle eine Lehrveranstaltung aus, zu der du Nachhilfe anbieten möchtest!</label>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="edit_whm" checked="checked" class="hidden">
+            <label for="edit_whm">Web und Hypermedia (1.Semester)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="edit_oop" class="hidden">
+            <label for="edit_oop">Objektorientierte Programmierung (2.Semester)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="edit_cms" class="hidden">
+            <label for="edit_cms">Content Management Systeme (3.Semester)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="subject" id="edit_ele" class="hidden">
+            <label for="edit_ele">E-Learning (3.Semester)</label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="edit_description">Bitte beschreibe kurz dein Nachhilfeangebot!</label>
+        <textarea id="edit_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam commodi culpa deserunt, dolor fugiat inventore minima possimus similique sit ullam veniam voluptates? Autem cumque doloreducimus exercitationem id libero odio.</textarea>
+      </div>
+      <div class="field">
+        <label>Meine verfügbaren Termine</label>
+        <div class="AvailableDate">
+          <div><label for="edit_date_at_1">Am</label><input id="edit_date_at_1" type="date" value="2022-06-01"></div>
+          <div><label for="edit_date_from_1">Von</label><input id="edit_date_from_1" type="time" value="13:30"></div>
+          <div><label for="edit_date_to_1">Bis</label><input id="edit_date_to_1" type="time" value="14:30"></div>
+        </div>
+        <div class="AvailableDate">
+          <div><label for="edit_date_at_2">Am</label><input id="edit_date_at_2" type="date"></div>
+          <div><label for="edit_date_from_2">Von</label><input id="edit_date_from_2" type="time"></div>
+          <div><label for="edit_date_to_2">Bis</label><input id="edit_date_to_2" type="time"></div>
+        </div>
+        <button class="ui icon button grey small"><i class="icon add"></i></button>
+      </div>
+      <div class="ui center aligned grid">
+        <button class="ui button green SubmitBtn" type="submit"><i class="icon left save"></i>Angebot speichern</button>
+      </div>
+    </form>
+  </div>
+
+</div>
