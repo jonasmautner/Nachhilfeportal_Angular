@@ -21,12 +21,12 @@ export class LearningofferService {
       .pipe(catchError(this.errorHandler));
   }
 
-  // getSingle(id:number):Observable<Learningoffer> {
-  //   return this.http.get<Learningoffer>(`${this.api}/offers/${id}`)
-  //     .pipe(retry(3))
-  //     .pipe(catchError(this.errorHandler));
-  // }
-  //
+  getSingle(id:number):Observable<Learningoffer> {
+    return this.http.get<Learningoffer>(`${this.api}/offers/${id}`)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
   // remove(isbn:string):Observable<any> {
   //   return this.http.delete(`${this.api}/books/${isbn}`)
   //     .pipe(retry(3))
