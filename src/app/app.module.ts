@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { OfferDetailComponent } from './offer-detail/offer-detail.component';
 import { OfferFormComponent } from './offer-form/offer-form.component';
 import { OfferListComponent } from './offer-list/offer-list.component';
-import { OfferListItemComponent } from './offer-list-item/offer-list-item.component';
 import { RegisterComponent } from './register/register.component';
 
 // Module
@@ -28,7 +27,6 @@ import { ToastrModule } from "ngx-toastr";
     OfferDetailComponent,
     OfferFormComponent,
     OfferListComponent,
-    OfferListItemComponent,
     RegisterComponent
   ],
   imports: [

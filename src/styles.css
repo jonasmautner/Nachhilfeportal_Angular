@@ -29,6 +29,9 @@
 .LearningOffer_ListItem:hover {
   background: rgba(0,0,0,0.05);
 }
+.ProfileImage {
+  border-radius: 100%;
+}
 
 /* Text */
 .LearningOffer_Accepted,
@@ -76,4 +79,7 @@
 }
 .ui.button {
   margin: 0.25em !important;
+}
+.ui.menu {
+  border-radius: 0 !important;
 }
