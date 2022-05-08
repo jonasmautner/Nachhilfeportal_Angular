@@ -83,3 +83,6 @@
 .ui.menu {
   border-radius: 0 !important;
 }
+.grouped.fields {
+  margin-bottom: 2em !important;
+}

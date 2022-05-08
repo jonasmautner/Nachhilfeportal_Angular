@@ -11,7 +11,7 @@ export class Learningoffer {
     public owner:User,
     public learner:User,
     public subject:Subject,
-    public accepted_at:Date,
+    public accepted_at:Date|null,
     public created_at:Date,
     public description?:string,
     public meetingdates?:Meetingdate[]

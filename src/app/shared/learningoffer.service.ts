@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
-import { Learningoffer } from "./learningoffer";
+import {Learningoffer, Subject} from "./learningoffer";
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +54,11 @@ export class LearningofferService {
 
   private errorHandler(error:Error|any):Observable<any>{
     return throwError(() => new Error(error));
+  }
+
+  getAllSubjects():Observable<Array<Subject>> {
+    return this.http.get<Array<Learningoffer>>(`${this.api}/subjects`) // todo route in laravel
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
   }
 }

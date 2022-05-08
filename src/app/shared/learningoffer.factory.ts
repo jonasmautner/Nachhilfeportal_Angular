@@ -7,24 +7,24 @@ export class LearningofferFactory {
       "0",
       new User('', '', '', false),
       new User('', '', '', false),
-      new Subject(1, '', '', ''),
-      new Date(),
+      new Subject("1", '', '', ''),
+      null,
       new Date(),
       '',
       []
     );
   }
 
-  static fromObject(rawBook:any):Learningoffer {
+  static fromObject(rawOffer:any):Learningoffer {
     return new Learningoffer(
-      rawBook.id,
-      rawBook.owner,
-      rawBook.learner,
-      rawBook.subject,
-      typeof(rawBook.accepted_at) === "string" ? new Date(rawBook.accepted_at) : rawBook.accepted_at,
-      typeof(rawBook.created_at) === "string" ? new Date(rawBook.created_at) : rawBook.created_at,
-      rawBook.description,
-      rawBook.meetingdates
+      rawOffer.id,
+      rawOffer.owner,
+      rawOffer.learner,
+      rawOffer.subject,
+      typeof(rawOffer.accepted_at) === "string" ? new Date(rawOffer.accepted_at) : rawOffer.accepted_at,
+      typeof(rawOffer.created_at) === "string" ? new Date(rawOffer.created_at) : rawOffer.created_at,
+      rawOffer.description,
+      rawOffer.meetingdates
     );
   }
 }
