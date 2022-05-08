@@ -33,18 +33,18 @@ export class LearningofferService {
       .pipe(catchError(this.errorHandler));
   }
 
-  // update(book:Book):Observable<any> {
-  //   return this.http.put(`${this.api}/books/${book.isbn}`, book)
-  //     .pipe(retry(3))
-  //     .pipe(catchError(this.errorHandler));
-  // }
-  //
-  // create(book:Book):Observable<any>{
-  //   return this.http.post(`${this.api}/books`, book)
-  //     .pipe(retry(3))
-  //     .pipe(catchError(this.errorHandler));
-  // }
-  //
+  update(offer:Learningoffer):Observable<any> {
+    return this.http.put(`${this.api}/offer/${offer.id}`, offer)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  create(offer:Learningoffer):Observable<any>{
+    return this.http.post(`${this.api}/offers`, offer)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
   // check(isbn:string):Observable<Boolean> {
   //   console.log("check isbn");
   //   return this.http.get<Boolean>(`${this.api}/books/checkISBN/${isbn}`)

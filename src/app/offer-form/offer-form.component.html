@@ -1,37 +1,52 @@
 <div class="ui container Main">
   <h2 class="ui header aligned center">Nachhilfeangebot bearbeiten oder erstellen</h2>
   <div class="ui segment raised EditOfferForm">
-    <form class="ui form">
+
+    <form class="ui form" [formGroup]="offerForm" (ngSubmit)="submitForm()">
+      <input type="hidden" formControlName="id">
+
       <div class="grouped fields">
         <label>Bitte wähle eine Lehrveranstaltung aus, zu der du Nachhilfe anbieten möchtest!</label>
         <div *ngFor="let subject of subjects">
           <div class="field">
             <div class="ui radio checkbox">
-              <input *ngIf="offer.subject.id === subject.id" type="radio" name="subject" id="edit_{{ subject.id }}" checked="checked" class="hidden">
-              <input *ngIf="offer.subject.id !== subject.id" type="radio" name="subject" id="edit_{{ subject.id }}" class="hidden">
-              <label for="edit_{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>
+              <input *ngIf="offer.subject.id === subject.id" type="radio" name="subject" id="{{ subject.id }}" checked="checked" class="hidden">
+              <input *ngIf="offer.subject.id !== subject.id" type="radio" name="subject" id="{{ subject.id }}" class="hidden">
+              <label for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>
             </div>
           </div>
         </div>
       </div>
+
       <div class="field">
-        <label for="edit_description">Bitte beschreibe kurz dein Nachhilfeangebot!</label>
-        <textarea id="edit_description">{{ offer.description }}</textarea>
+        <label for="description">Bitte beschreibe kurz dein Nachhilfeangebot!</label>
+        <textarea formControlName="description" id="description">{{ offer.description }}</textarea>
       </div>
-      <div class="field">
+
+      <div formArrayName="meetingdates" class="field">
         <label>Meine verfügbaren Termine</label>
-        <div *ngFor="let date of offer?.meetingdates; index as i; last as l" >
+        <div *ngFor="let date of offer?.meetingdates; index as i; last as l" [formGroupName]="i">
           <div class="AvailableDate">
-            <div><label for="edit_date_at_{{i+1}}">Am</label><input id="edit_date_at_{{i+1}}" type="date" value="{{date.day | date:'YYYY-MM-dd'}}"></div>
-            <div><label for="edit_date_from_{{i+1}}">Von</label><input id="edit_date_from_{{i+1}}" type="time" value="{{date.from | date:'HH:mm'}}"></div>
-            <div><label for="edit_date_to_{{i+1}}">Bis</label><input id="edit_date_to_{{i+1}}" type="time" value="{{date.to | date:'HH:mm'}}"></div>
+            <input type="hidden" formControlName="id">
+            <div><label for="date_at_{{i+1}}">Am</label>
+              <input formControlName="day" id="date_at_{{i+1}}" type="date" value="{{date.day | date:'YYYY-MM-dd'}}">
+            </div>
+            <div><label for="date_from_{{i+1}}">Von</label>
+              <input formControlName="from" id="date_from_{{i+1}}" type="time" value="{{date.from | date:'HH:mm'}}">
+            </div>
+            <div><label for="date_to_{{i+1}}">Bis</label>
+              <input formControlName="to" id="date_to_{{i+1}}" type="time" value="{{date.to | date:'HH:mm'}}">
+            </div>
           </div>
-          <button *ngIf="l" class="ui icon button grey small"><i class="icon add"></i></button>
+          <button *ngIf="l" (click)="addThumbnailControl()" class="ui icon button grey small"><i class="icon add"></i></button>
         </div>
       </div>
+
       <div class="ui center aligned grid">
         <button class="ui button green SubmitBtn" type="submit"><i class="icon left save"></i>Angebot speichern</button>
       </div>
+
     </form>
   </div>
+  <a [routerLink]="['/../offers/', offer?.id]" class="ui button primary"><i class="icon left arrow left"></i>Zurück zum Angebot</a>
 </div>
