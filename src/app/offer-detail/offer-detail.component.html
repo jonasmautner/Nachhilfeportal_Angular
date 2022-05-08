@@ -20,7 +20,7 @@
         </div>
         <div class="column">
           <p class="LearningOffer_Created">
-            <i>Angebot erstellt<br>von {{ offer.owner.firstname }} {{ offer.owner.lastname }}<br>{{ offer.created_at }}</i>
+            <i>Angebot erstellt<br>von {{ offer.owner.firstname }} {{ offer.owner.lastname }}<br>am {{ offer.created_at | date:'dd.MM.YYYY'}}</i>
           </p>
         </div>
       </div>
@@ -32,7 +32,7 @@
           <div class="LearningOffer_Detail_Dates">
             <p><b>Meine verfügbaren Termine</b><br>
               <span *ngFor="let date of offer.meetingdates; last as l">
-                {{ date.day }} - {{ date.from }} bis {{ date.to }}
+                {{ date.day | date:'dd.MM.YYYY'}}, von {{ date.from | date:'HH:mm'}} bis {{ date.to | date:'HH:mm'}}
                 <br *ngIf="!l">
               </span>
             </p>
@@ -41,9 +41,9 @@
         <div class="column"></div>
         <div class="column bottom aligned">
           <a class="ui button grey small"><i class="icon left edit"></i>Bearbeiten</a>
-          <a class="ui button red small"><i class="icon left delete"></i>Löschen</a>
+          <a (click)="removeOffer()" class="ui button red small"><i class="icon left delete"></i>Löschen</a>
           <p class="LearningOffer_Accepted">
-            <i>Angebot angenommen<br>von {{ offer.learner.firstname }} {{ offer.learner.lastname }}<br>{{ offer.accepted_at }}</i>
+            <i>Angebot angenommen<br>von {{ offer.learner.firstname }} {{ offer.learner.lastname }}<br>am {{ offer.accepted_at | date:'dd.MM.YYYY'}}</i>
           </p>
         </div>
       </div>

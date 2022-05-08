@@ -27,12 +27,12 @@ export class LearningofferService {
       .pipe(catchError(this.errorHandler));
   }
 
-  // remove(isbn:string):Observable<any> {
-  //   return this.http.delete(`${this.api}/books/${isbn}`)
-  //     .pipe(retry(3))
-  //     .pipe(catchError(this.errorHandler));
-  // }
-  //
+  remove(id:string):Observable<any> {
+    return this.http.delete(`${this.api}/offers/${id}`)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
   // update(book:Book):Observable<any> {
   //   return this.http.put(`${this.api}/books/${book.isbn}`, book)
   //     .pipe(retry(3))

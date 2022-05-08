@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
 import { Learningoffer } from "../shared/learningoffer";
 import { LearningofferService } from "../shared/learningoffer.service";
 
@@ -16,7 +17,9 @@ export class OfferListComponent implements OnInit {
   @Output() showDetailsEvent = new EventEmitter<Learningoffer>();
 
   constructor(
-    private ls:LearningofferService
+    private ls:LearningofferService,
+    private route:ActivatedRoute,
+    private router:Router
   ) {}
 
   ngOnInit():void {
@@ -25,5 +28,12 @@ export class OfferListComponent implements OnInit {
 
   showDetails(offer:Learningoffer) {
     this.showDetailsEvent.emit(offer);
+  }
+
+  removeOffer(offer:Learningoffer) {
+    if(confirm("Das Lernangebot von "+offer.owner.firstname+" "+offer.owner.lastname+" wirklich löschen?")) {
+      this.ls.remove(offer.id)
+        .subscribe(result => window.location.reload());
+    }
   }
 }

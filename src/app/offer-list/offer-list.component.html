@@ -28,7 +28,7 @@
       </div>
       <div class="column">
         <a class="ui button green small"><i class="icon left check circle outline"></i>Annehmen</a>
-        <a class="ui button red small"><i class="icon left delete"></i>Löschen</a>
+        <a (click)="removeOffer(offer)" class="ui button red small"><i class="icon left delete"></i>Löschen</a>
         <a [attr.offer]="offer" routerLink="/../offers/{{offer.id}}"
            class="ui button blue small">Mehr<i class="right arrow icon"></i></a>
         <p class="LearningOffer_Accepted"><i>Angebot angenommen<br>von {{ offer.learner.firstname }} {{ offer.learner.lastname }}</i></p>
