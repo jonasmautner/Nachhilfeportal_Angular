@@ -29,10 +29,16 @@
       </div>
       <div class="three column row">
         <div class="column">
+          <div>
+            <p><b>Kontakt</b><br>
+              <span>E-Mail: <a href="mailto:{{ offer.owner.email }}">{{ offer.owner.email }}</a><br></span>
+              <span *ngIf="offer.owner.telephone">Telefon: <a href="tel:{{ offer.owner.telephone }}">{{ offer.owner.telephone }}</a></span>
+            </p>
+          </div>
           <div class="LearningOffer_Detail_Dates">
             <p><b>Meine verfügbaren Termine</b><br>
               <span *ngFor="let date of offer.meetingdates; last as l">
-                {{ date.day | date:'dd.MM.YYYY'}}, von {{ date.from | date:'HH:mm'}} bis {{ date.to | date:'HH:mm'}}
+                {{ date.day | date:'dd.MM.YYYY'}}, von {{ date.from | date:'HH:mm'}} Uhr bis {{ date.to | date:'HH:mm'}} Uhr
                 <br *ngIf="!l">
               </span>
             </p>

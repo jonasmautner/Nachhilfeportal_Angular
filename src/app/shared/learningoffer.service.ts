@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import {Learningoffer, Subject} from "./learningoffer";
+import {LearningofferObservable} from "./learningoffer-observable";
 
 @Injectable({
   providedIn: 'root'
@@ -33,14 +34,20 @@ export class LearningofferService {
       .pipe(catchError(this.errorHandler));
   }
 
-  update(offer:Learningoffer):Observable<any> {
-    return this.http.put(`${this.api}/offer/${offer.id}`, offer)
+  update(offer:LearningofferObservable):Observable<any> {
+    return this.http.put(`${this.api}/offers/${offer.id}`, offer)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
 
   create(offer:Learningoffer):Observable<any>{
     return this.http.post(`${this.api}/offers`, offer)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  accept(offer:Learningoffer):Observable<any> {
+    return this.http.put(`${this.api}/offers/accept/${offer.id}`, offer)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }

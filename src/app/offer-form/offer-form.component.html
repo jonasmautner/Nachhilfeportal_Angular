@@ -7,11 +7,22 @@
 
       <div class="grouped fields">
         <label>Bitte wähle eine Lehrveranstaltung aus, zu der du Nachhilfe anbieten möchtest!</label>
+<!--        <div *ngFor="let subject of subjects">-->
+<!--          <div class="field">-->
+<!--            <div class="ui radio checkbox"> &lt;!&ndash; if else von Angular hat irgendwie nicht funktioniert &ndash;&gt;-->
+<!--              <input *ngIf="offer?.subject?.id === subject.id" formControlName="subject"-->
+<!--                     type="radio" name="subject" id="{{ subject.id }}" checked="checked" class="hidden">-->
+<!--              <input *ngIf="offer?.subject?.id !== subject.id"-->
+<!--                     type="radio" name="subject" id="{{ subject.id }}" class="hidden">-->
+<!--              <label for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
         <div *ngFor="let subject of subjects">
           <div class="field">
             <div class="ui radio checkbox">
-              <input *ngIf="offer.subject.id === subject.id" type="radio" name="subject" id="{{ subject.id }}" checked="checked" class="hidden">
-              <input *ngIf="offer.subject.id !== subject.id" type="radio" name="subject" id="{{ subject.id }}" class="hidden">
+<!--              <input *ngIf="offerForm.get('subject')?.value === subject.id" formControlName="subject" type="radio" name="subject" id="{{ subject.id }}" value="{{ subject.id }}" class="hidden" checked="checked">-->
+              <input formControlName="subject_id" type="radio" name="subject_id" id="{{ subject.id }}" value="{{ subject.id }}" class="hidden">
               <label for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>
             </div>
           </div>
@@ -20,25 +31,27 @@
 
       <div class="field">
         <label for="description">Bitte beschreibe kurz dein Nachhilfeangebot!</label>
-        <textarea formControlName="description" id="description">{{ offer.description }}</textarea>
+        <textarea formControlName="description" id="description">{{ offer?.description }}</textarea>
       </div>
 
-      <div formArrayName="meetingdates" class="field">
+      <div class="field">
         <label>Meine verfügbaren Termine</label>
-        <div *ngFor="let date of offer?.meetingdates; index as i; last as l" [formGroupName]="i">
-          <div class="AvailableDate">
-            <input type="hidden" formControlName="id">
-            <div><label for="date_at_{{i+1}}">Am</label>
-              <input formControlName="day" id="date_at_{{i+1}}" type="date" value="{{date.day | date:'YYYY-MM-dd'}}">
+        <div formArrayName="meetingdates" >
+          <div *ngFor="let date of meetingdates.controls; index as i; last as l" [formGroupName]="i">
+            <div class="AvailableDate">
+              <input type="hidden" formControlName="id">
+              <div><label for="date_at_{{i+1}}">Am</label>
+                <input formControlName="day" id="date_at_{{i+1}}" type="date">
+              </div>
+              <div><label for="date_from_{{i+1}}">Von</label>
+                <input formControlName="from" id="date_from_{{i+1}}" type="time">
+              </div>
+              <div><label for="date_to_{{i+1}}">Bis</label>
+                <input formControlName="to" id="date_to_{{i+1}}" type="time">
+              </div>
             </div>
-            <div><label for="date_from_{{i+1}}">Von</label>
-              <input formControlName="from" id="date_from_{{i+1}}" type="time" value="{{date.from | date:'HH:mm'}}">
-            </div>
-            <div><label for="date_to_{{i+1}}">Bis</label>
-              <input formControlName="to" id="date_to_{{i+1}}" type="time" value="{{date.to | date:'HH:mm'}}">
-            </div>
+            <button *ngIf="l" (click)="addThumbnailControl()" class="ui icon button grey small" type="button"><i class="icon add"></i></button>
           </div>
-          <button *ngIf="l" (click)="addThumbnailControl()" class="ui icon button grey small"><i class="icon add"></i></button>
         </div>
       </div>
 

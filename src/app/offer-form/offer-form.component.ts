@@ -14,11 +14,11 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@ang
 })
 export class OfferFormComponent implements OnInit {
 
-  offer:Learningoffer = LearningofferFactory.empty();
+  offer = LearningofferFactory.empty();
   subjects:Subject[] = [];
   offerForm:FormGroup;
   meetingdates:FormArray;
-  isUpdate:boolean = false;
+  isUpdate = false;
 
   constructor(
     private fb:FormBuilder,
@@ -26,15 +26,14 @@ export class OfferFormComponent implements OnInit {
     private route:ActivatedRoute,
     private router:Router
   ) {
-    this.offerForm = this.fb.group({}); // Objekt
-    this.meetingdates = this.fb.array([]); // Array
+    this.offerForm = this.fb.group({});
+    this.meetingdates = this.fb.array([]);
   }
 
   ngOnInit():void {
-    const params = this.route.snapshot.params;
     this.ls.getAllSubjects()
       .subscribe(result => this.subjects = result);
-    const id = params["id"];
+    const id = this.route.snapshot.params["id"];
     if(id){
       this.isUpdate = true;
       this.ls.getSingle(id)
@@ -43,26 +42,36 @@ export class OfferFormComponent implements OnInit {
           this.initOffer();
         });
     }
+    this.initOffer();
   }
 
   initOffer() {
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
-      description: this.offer.description
+      subject_id: this.offer.subject.id,
+      description: this.offer.description,
+      meetingdates: this.meetingdates
     });
+    console.log(this.offerForm);
     this.offerForm.statusChanges.subscribe(() => this.updateErrorMessages());
   }
 
   buildDatesArray() {
     if(this.offer.meetingdates) {
       this.meetingdates = this.fb.array([]);
-      for (let d of this.offer.meetingdates) {
+      for (let m of this.offer.meetingdates) {
+        let sFromHour = m.from.toString().substring(11,13);
+        let sFromMin = m.from.toString().substring(13,16);
+        let sFrom = sFromHour+sFromMin;
+        let sToHour = m.to.toString().substring(11,13);
+        let sToMin = m.to.toString().substring(13,16);
+        let sTo = sToHour+sToMin;
         let fg = this.fb.group({
-          id: new FormControl(d.id),
-          day: new FormControl(d.day, [Validators.required]),
-          from: new FormControl(d.from, [Validators.required]),
-          to: new FormControl(d.to, [Validators.required])
+          id: new FormControl(m.id),
+          day: new FormControl(m.day, [Validators.required]),
+          from: new FormControl(sFrom, [Validators.required]),
+          to: new FormControl(sTo, [Validators.required])
         });
         this.meetingdates.push(fg);
       }
@@ -74,22 +83,22 @@ export class OfferFormComponent implements OnInit {
   }
 
   submitForm(){
-    this.offerForm.value.meetingdates = this.offerForm.value.meetingdates.filter(
-      (meetingdate: {id:string;}) => meetingdate.id // todo ??
-    )
-    const offer:Learningoffer = LearningofferFactory.fromObject(this.offerForm.value);
+    const offer = LearningofferFactory.fromObject(this.offerForm.value);
+    //offer.owner_id = ; //todo eingeloggter User
+    console.log(offer);
+    //return null;
     if(this.isUpdate) {
       this.ls.update(offer).subscribe(result => {
-        this.router.navigate(['../../home', offer.id], {relativeTo: this.route});
-      });
-    } else {
-      offer.owner = {firstname:"Tom", lastname:"Muster", email:"tom@gmail.com", is_learner:false}; // todo wird noch geändert auf eingeloggten User
-      this.ls.create(offer).subscribe(result => {
-        this.offer = LearningofferFactory.empty(); // Formular zurücksetzen
-        this.offerForm.reset(LearningofferFactory.empty());
-        this.router.navigate(['../books'], {relativeTo: this.route});
+        this.router.navigate(['../../../offers', offer.id], {relativeTo: this.route});
       });
     }
+    // else {
+    //   this.ls.create(offer).subscribe(result => {
+    //     this.offer = LearningofferFactory.empty(); // Formular zurücksetzen
+    //     this.offerForm.reset(LearningofferFactory.empty());
+    //     this.router.navigate(['../books'], {relativeTo: this.route});
+    //   });
+    // }
   }
 
   addThumbnailControl() {

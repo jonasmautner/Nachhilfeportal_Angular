@@ -1,4 +1,5 @@
 import { Learningoffer, Subject, User } from "./learningoffer";
+import { LearningofferObservable } from "./learningoffer-observable";
 
 export class LearningofferFactory {
 
@@ -15,12 +16,12 @@ export class LearningofferFactory {
     );
   }
 
-  static fromObject(rawOffer:any):Learningoffer {
-    return new Learningoffer(
+  static fromObject(rawOffer:any):LearningofferObservable {
+    return new LearningofferObservable(
       rawOffer.id,
-      rawOffer.owner,
-      rawOffer.learner,
-      rawOffer.subject,
+      rawOffer.owner_id,
+      rawOffer.learner_id,
+      rawOffer.subject_id,
       typeof(rawOffer.accepted_at) === "string" ? new Date(rawOffer.accepted_at) : rawOffer.accepted_at,
       typeof(rawOffer.created_at) === "string" ? new Date(rawOffer.created_at) : rawOffer.created_at,
       rawOffer.description,
