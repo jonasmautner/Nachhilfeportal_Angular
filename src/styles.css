@@ -73,6 +73,11 @@
   gap: 0.5em;
 }
 
+/* Login Area */
+.CreateOffer_Button {
+  margin-top: 3em !important;
+}
+
 /* Overrides of Semantic UI */
 .pusher {
   height: 100% !important;

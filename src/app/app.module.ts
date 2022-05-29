@@ -17,6 +17,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
+import {LearningofferService} from "./shared/learningoffer.service";
+import {AuthenticationService} from "./shared/authentication.service";
 
 @NgModule({
   declarations: [
@@ -37,8 +39,19 @@ import { ToastrModule } from "ngx-toastr";
     ReactiveFormsModule,
     ToastrModule.forRoot()
   ],
-  // todo providers
-  providers: [],
+  providers: [
+    LearningofferService, AuthenticationService,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptorService,
+    //   multi: true
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtInterceptorService,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

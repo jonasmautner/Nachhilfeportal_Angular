@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
-import {Learningoffer, Subject} from "./learningoffer";
-import {LearningofferObservable} from "./learningoffer-observable";
+import { Learningoffer, Subject, User } from "./learningoffer";
+import { LearningofferObservable } from "./learningoffer-observable";
 
 @Injectable({
   providedIn: 'root'
@@ -64,8 +64,14 @@ export class LearningofferService {
   }
 
   getAllSubjects():Observable<Array<Subject>> {
-    return this.http.get<Array<Learningoffer>>(`${this.api}/subjects`) // todo route in laravel
+    return this.http.get<Array<Learningoffer>>(`${this.api}/subjects`)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
+  }
+
+  getUserById(id:number):Observable<any> {
+    return this.http.get<any>(`${this.api}/user/${id}`)
+      .pipe(retry(3))
+      .pipe(catchError(this.errorHandler))
   }
 }

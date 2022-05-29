@@ -46,8 +46,8 @@
         </div>
         <div class="column"></div>
         <div class="column bottom aligned">
-          <a [routerLink]="['/../offers/form', offer?.id]" class="ui button grey small"><i class="icon left edit"></i>Bearbeiten</a>
-          <a (click)="removeOffer()" class="ui button red small"><i class="icon left delete"></i>Löschen</a>
+          <a *ngIf="isLoggedIn()" [routerLink]="['/../offers/form', offer?.id]" class="ui button grey small"><i class="icon left edit"></i>Bearbeiten</a>
+          <a *ngIf="isLoggedIn()" (click)="removeOffer()" class="ui button red small"><i class="icon left delete"></i>Löschen</a>
           <p class="LearningOffer_Accepted">
             <i>Angebot angenommen<br>von {{ offer.learner?.firstname }} {{ offer.learner?.lastname }}<br>am {{ offer.accepted_at | date:'dd.MM.YYYY'}}</i>
           </p>

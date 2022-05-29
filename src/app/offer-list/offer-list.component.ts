@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Learningoffer } from "../shared/learningoffer";
 import { LearningofferService } from "../shared/learningoffer.service";
+import { AuthenticationService } from "../shared/authentication.service";
 
 @Component({
   selector: 'div.LearningOffer_List',
@@ -19,7 +20,8 @@ export class OfferListComponent implements OnInit {
   constructor(
     private ls:LearningofferService,
     private route:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit():void {
@@ -35,5 +37,9 @@ export class OfferListComponent implements OnInit {
       this.ls.remove(offer.id)
         .subscribe(result => window.location.reload());
     }
+  }
+
+  isLoggedIn(){
+    return this.authService.isLoggedIn();
   }
 }

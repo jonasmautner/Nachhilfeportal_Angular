@@ -1,17 +1,19 @@
 <div class="ui container Main">
   <div class="ui center aligned padded stackable grid">
     <div class="row">
-      <img src="https://profile-images.xing.com/images/8e1dd22e7ad7b4e0f0212571e3d7c96a-2/jonas-mautner.1024x1024.jpg" alt="..."
+      <img src="{{authenticatedUser.imagepath}}"
+           alt="Bild von {{authenticatedUser.firstname}} {{authenticatedUser.lastname}}"
            style="border-radius: 100%;" width="100px">
     </div>
-    <p class="row">Sie sind angemeldet als Jonas Mautner (jonas.mautner@gmail.com)</p>
+    <p class="row">Sie sind angemeldet als {{authenticatedUser.firstname}} {{authenticatedUser.lastname}} ({{authenticatedUser.email}})</p>
   </div>
   <div class="ui divider"></div>
 
   <h2 class="ui header aligned center">Meine angebotenen Nachhilfen</h2>
+
   <div class="LearningOffer_List"></div>
 
-  <div class="ui center aligned grid">
+  <div class="ui center aligned grid CreateOffer_Button">
     <button class="ui button green"><i class="icon left add"></i>Angebot erstellen</button>
   </div>
 </div>

@@ -1,16 +1,21 @@
 <!-- Menu -->
-<!--todo Links ändern Anmelden/Abmelden etc.-->
 <div class="ui large inverted menu borderless Mainmenu">
   <div class="ui container">
     <div class="item">
       <a routerLink="home" routerLinkActive="active" class="ui inverted button">Startseite</a>
     </div>
     <div class="right item">
-      <div class="horizontally fitted item">
+      <div class="horizontally fitted item" *ngIf="isLoggedOut()">
         <a routerLink="login" routerLinkActive="active" class="ui inverted button">Anmelden</a>
       </div>
-      <div class="horizontally fitted item">
+      <div class="horizontally fitted item" *ngIf="isLoggedOut()">
         <a routerLink="register" routerLinkActive="active" class="ui inverted button">Registrieren</a>
+      </div>
+      <div class="horizontally fitted item" *ngIf="isLoggedIn()">
+        <a routerLink="login/area" routerLinkActive="active" class="ui inverted button">Mein Bereich</a>
+      </div>
+      <div class="horizontally fitted item" *ngIf="isLoggedIn()">
+        <a type="button" class="ui inverted button" (click)="logout()">Abmelden</a>
       </div>
     </div>
   </div>
@@ -19,7 +24,6 @@
 <router-outlet></router-outlet>
 
 <!-- Footer -->
-<!--todo Links ändern Anmelden/Abmelden etc.-->
 <div class="ui inverted vertical footer segment">
   <div class="ui container">
     <div class="ui stackable inverted divided equal height stackable padded grid">
@@ -28,8 +32,9 @@
         <h4 class="ui inverted header">Nachhilfeportal</h4>
         <div class="ui inverted link list">
           <a routerLink="home" routerLinkActive="active" class="item">Startseite</a>
-          <a routerLink="login" routerLinkActive="active" class="item">Anmelden</a>
-          <a routerLink="register" routerLinkActive="active" class="item">Registrieren</a>
+          <a routerLink="login" routerLinkActive="active" class="item" *ngIf="isLoggedOut()">Anmelden</a>
+          <a routerLink="register" routerLinkActive="active" class="item" *ngIf="isLoggedOut()">Registrieren</a>
+          <a routerLink="login/area" routerLinkActive="active" class="item" *ngIf="isLoggedIn()">Mein Bereich</a>
         </div>
       </div>
       <div class="three wide column">

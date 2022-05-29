@@ -4,6 +4,7 @@ import { LearningofferFactory } from "../shared/learningoffer.factory";
 import { LearningofferService } from "../shared/learningoffer.service";
 import { Learningoffer } from "../shared/learningoffer";
 import { DatePipe } from "@angular/common";
+import { AuthenticationService } from "../shared/authentication.service";
 
 @Component({
   selector: 'kwm-offer-detail',
@@ -19,7 +20,8 @@ export class OfferDetailComponent implements OnInit {
   constructor(
     private ls:LearningofferService,
     private route:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit():void {
@@ -33,5 +35,9 @@ export class OfferDetailComponent implements OnInit {
       this.ls.remove(this.offer.id)
         .subscribe(result => this.router.navigate(['../../home'],{relativeTo: this.route}));
     }
+  }
+
+  isLoggedIn(){
+    return this.authService.isLoggedIn();
   }
 }
