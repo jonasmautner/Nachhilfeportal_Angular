@@ -5,32 +5,118 @@
 </div>
 
 <!-- List Segments -->
-<div *ngFor="let offer of offers" class="ui segment raised LearningOffer_ListItem">
-  <div class="ui middle aligned padded stackable grid">
-    <div class="three column row">
-      <div class="column">
-        <div class="ui middle aligned grid">
-          <div class="two column row">
-            <div class="six wide column">
-              <img class="ProfileImage" src="{{ offer.owner.imagepath }}"
-                   alt="Profilbild von {{ offer.owner.firstname }} {{ offer.owner.lastname }}" width="100px">
+<ng-template [ngIf]="offers && offers != null && offers.length > 0" [ngIfElse]="infoMessageNoOffers">
+
+  <!-- Alle Angebote werden nacheinander ausgegeben -->
+  <ng-template ngFor let-offer [ngForOf]="offers">
+    <!--
+    Fall 1: keine Aufruf unter "Mein Bereich"
+    Fall 2: Aufruf unter "Mein Bereich" und Nutzer ist Anbieter
+    Fall 3: Aufruf unter "Mein Bereich" und Nutzer ist Lerner
+    -->
+    <ng-template [ngIf]="!isUserlist">
+      <div class="ui segment raised LearningOffer_ListItem">
+        <div class="ui middle aligned padded stackable grid">
+          <div class="three column row">
+            <div class="column">
+              <div class="ui middle aligned grid">
+                <div class="two column row">
+                  <div class="six wide column">
+                    <img class="ProfileImage" src="{{ offer.owner.imagepath }}"
+                         alt="Profilbild von {{ offer.owner.firstname }} {{ offer.owner.lastname }}" width="100px">
+                  </div>
+                  <div class="column">
+                    <p><b>{{ offer.owner.firstname }} {{ offer.owner.lastname }}</b><br>{{ offer.owner.user_semester }}. Semester</p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="column">
-              <p><b>{{ offer.owner.firstname }} {{ offer.owner.lastname }}</b><br>{{ offer.owner.user_semester }}. Semester</p>
+              <p><b>{{ offer.subject.title }}</b><br>{{ offer.subject.subject_semester }}. Semester</p>
+            </div>
+            <div class="column">
+              <a *ngIf="isLoggedIn() && authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 1 && offer.learner == null" (click)="acceptOffer(offer)"
+                 class="ui button green small"><i class="icon left check circle outline"></i>Annehmen</a>
+              <a *ngIf="isLoggedIn() && authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0 && offer.owner.id == authenticatedUser.id" (click)="removeOffer(offer)"
+                 class="ui button red small"><i class="icon left delete"></i>Löschen</a>
+              <a [attr.offer]="offer" routerLink="/../offers/{{offer.id}}"
+                 class="ui button blue small">Mehr<i class="right arrow icon"></i></a>
+              <p *ngIf="offer.learner != null || offer.learner != undefined"
+                 class="LearningOffer_Accepted"><i>Angebot angenommen<br>von {{ offer.learner?.firstname }} {{ offer.learner?.lastname }}</i></p>
             </div>
           </div>
         </div>
       </div>
-      <div class="column">
-        <p><b>{{ offer.subject.title }}</b><br>{{ offer.subject.subject_semester }}. Semester</p>
+    </ng-template>
+
+    <ng-template [ngIf]="isUserlist && authenticatedUser && authenticatedUser!= null && offer.owner.id == authenticatedUser.id">
+      <div class="ui segment raised LearningOffer_ListItem">
+        <div class="ui middle aligned padded stackable grid">
+          <div class="three column row">
+            <div class="column">
+              <div class="ui middle aligned grid">
+                <div class="two column row">
+                  <div class="six wide column">
+                    <img class="ProfileImage" src="{{ offer.owner.imagepath }}"
+                         alt="Profilbild von {{ offer.owner.firstname }} {{ offer.owner.lastname }}" width="100px">
+                  </div>
+                  <div class="column">
+                    <p><b>{{ offer.owner.firstname }} {{ offer.owner.lastname }}</b><br>{{ offer.owner.user_semester }}. Semester</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <p><b>{{ offer.subject.title }}</b><br>{{ offer.subject.subject_semester }}. Semester</p>
+            </div>
+            <div class="column">
+              <a *ngIf="isLoggedIn() && authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0" (click)="removeOffer(offer)"
+                 class="ui button red small"><i class="icon left delete"></i>Löschen</a>
+              <a [attr.offer]="offer" routerLink="/../offers/{{offer.id}}"
+                 class="ui button blue small">Mehr<i class="right arrow icon"></i></a>
+              <p *ngIf="offer.learner != null || offer.learner != undefined"
+                 class="LearningOffer_Accepted"><i>Angebot angenommen<br>von {{ offer.learner?.firstname }} {{ offer.learner?.lastname }}</i></p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="column">
-        <a *ngIf="isLoggedIn()" class="ui button green small"><i class="icon left check circle outline"></i>Annehmen</a>
-        <a *ngIf="isLoggedIn()" (click)="removeOffer(offer)" class="ui button red small"><i class="icon left delete"></i>Löschen</a>
-        <a [attr.offer]="offer" routerLink="/../offers/{{offer.id}}"
-           class="ui button blue small">Mehr<i class="right arrow icon"></i></a>
-        <p class="LearningOffer_Accepted"><i>Angebot angenommen<br>von {{ offer.learner?.firstname }} {{ offer.learner?.lastname }}</i></p>
+    </ng-template>
+
+    <ng-template [ngIf]="isUserlist && authenticatedUser && authenticatedUser!= null && offer.learner && offer.learner != null && offer.learner.id == authenticatedUser.id">
+      <div class="ui segment raised LearningOffer_ListItem">
+        <div class="ui middle aligned padded stackable grid">
+          <div class="three column row">
+            <div class="column">
+              <div class="ui middle aligned grid">
+                <div class="two column row">
+                  <div class="six wide column">
+                    <img class="ProfileImage" src="{{ offer.owner.imagepath }}"
+                         alt="Profilbild von {{ offer.owner.firstname }} {{ offer.owner.lastname }}" width="100px">
+                  </div>
+                  <div class="column">
+                    <p><b>{{ offer.owner.firstname }} {{ offer.owner.lastname }}</b><br>{{ offer.owner.user_semester }}. Semester 3</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <p><b>{{ offer.subject.title }}</b><br>{{ offer.subject.subject_semester }}. Semester</p>
+            </div>
+            <div class="column">
+              <a [attr.offer]="offer" routerLink="/../offers/{{offer.id}}"
+                 class="ui button blue small">Mehr<i class="right arrow icon"></i></a>
+              <p *ngIf="offer.learner != null || offer.learner != undefined"
+                 class="LearningOffer_Accepted"><i>Angebot angenommen<br>von {{ offer.learner?.firstname }} {{ offer.learner?.lastname }}</i></p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+    </ng-template>
+
+  </ng-template>
+
+</ng-template>
+
+<ng-template #infoMessageNoOffers>
+  <h4 class="text center aligned"><i><b>Keine Angebote vorhanden!</b></i></h4>
+</ng-template>

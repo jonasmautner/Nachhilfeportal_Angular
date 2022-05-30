@@ -14,11 +14,16 @@ import { RegisterComponent } from './register/register.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
-import {LearningofferService} from "./shared/learningoffer.service";
-import {AuthenticationService} from "./shared/authentication.service";
+
+// Services
+import { LearningofferService } from "./shared/learningoffer.service";
+import { AuthenticationService } from "./shared/authentication.service";
+import { TokenInterceptorService } from "./shared/token-interceptor.service";
+import {JwtInterceptorService} from "./shared/jwt-interceptor.service";
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import {AuthenticationService} from "./shared/authentication.service";
     OfferDetailComponent,
     OfferFormComponent,
     OfferListComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagenotfoundComponent
   ],
   imports: [
     AppRoutingModule,
@@ -41,16 +47,16 @@ import {AuthenticationService} from "./shared/authentication.service";
   ],
   providers: [
     LearningofferService, AuthenticationService,
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptorService,
-    //   multi: true
-    // },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: JwtInterceptorService,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

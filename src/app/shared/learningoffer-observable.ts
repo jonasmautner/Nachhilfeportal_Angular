@@ -3,7 +3,7 @@ import {Meetingdate} from "./meetingdate";
 export class LearningofferObservable {
   constructor(
     public id:string,
-    public owner_id:string,
+    public owner_id:number,
     public learner_id:string,
     public subject_id:string,
     public accepted_at:Date|null,

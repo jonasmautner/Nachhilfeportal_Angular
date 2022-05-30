@@ -7,23 +7,14 @@
 
       <div class="grouped fields">
         <label>Bitte wähle eine Lehrveranstaltung aus, zu der du Nachhilfe anbieten möchtest!</label>
-<!--        <div *ngFor="let subject of subjects">-->
-<!--          <div class="field">-->
-<!--            <div class="ui radio checkbox"> &lt;!&ndash; if else von Angular hat irgendwie nicht funktioniert &ndash;&gt;-->
-<!--              <input *ngIf="offer?.subject?.id === subject.id" formControlName="subject"-->
-<!--                     type="radio" name="subject" id="{{ subject.id }}" checked="checked" class="hidden">-->
-<!--              <input *ngIf="offer?.subject?.id !== subject.id"-->
-<!--                     type="radio" name="subject" id="{{ subject.id }}" class="hidden">-->
-<!--              <label for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-        <div *ngFor="let subject of subjects">
+        <div *ngFor="let subject of subjects; index as i">
           <div class="field">
-            <div class="ui radio checkbox">
-<!--              <input *ngIf="offerForm.get('subject')?.value === subject.id" formControlName="subject" type="radio" name="subject" id="{{ subject.id }}" value="{{ subject.id }}" class="hidden" checked="checked">-->
+            <div class="ui radio checkbox Radiobutton_Item">
               <input formControlName="subject_id" type="radio" name="subject_id" id="{{ subject.id }}" value="{{ subject.id }}" class="hidden">
-              <label for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>
+              <label *ngIf="this.offerForm && this.offerForm.controls['subject_id'].value && this.offerForm.controls['subject_id'].value == (i+1)"
+                for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester) - <b style="color: #2185D0;">bisher ausgewählt</b></label>
+              <label *ngIf="this.offerForm && this.offerForm.controls['subject_id'].value && this.offerForm.controls['subject_id'].value != (i+1)"
+                for="{{ subject.id }}">{{ subject.title }} ({{ subject.subject_semester }}.Semester)</label>
             </div>
           </div>
         </div>
@@ -50,8 +41,9 @@
                 <input formControlName="to" id="date_to_{{i+1}}" type="time">
               </div>
             </div>
-            <button *ngIf="l" (click)="addThumbnailControl()" class="ui icon button grey small" type="button"><i class="icon add"></i></button>
+<!--            <button *ngIf="l" (click)="addThumbnailControl()" class="ui icon button grey small" type="button"><i class="icon add"></i></button>-->
           </div>
+          <button (click)="addThumbnailControl()" class="ui icon button grey small" type="button"><i class="icon add"></i></button>
         </div>
       </div>
 

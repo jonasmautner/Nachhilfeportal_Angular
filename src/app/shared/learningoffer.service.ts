@@ -46,8 +46,8 @@ export class LearningofferService {
       .pipe(catchError(this.errorHandler));
   }
 
-  accept(offer:Learningoffer):Observable<any> {
-    return this.http.put(`${this.api}/offers/accept/${offer.id}`, offer)
+  accept(offer:Learningoffer, learner:any):Observable<any> {
+    return this.http.put(`${this.api}/offers/accept/${offer.id}`, learner)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }

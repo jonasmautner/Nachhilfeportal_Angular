@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Learningoffer, Subject } from "../shared/learningoffer";
 import { LearningofferFactory } from "../shared/learningoffer.factory";
 import { LearningofferService } from "../shared/learningoffer.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DatePipe } from "@angular/common";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthenticationService } from "../shared/authentication.service";
 
 @Component({
   selector: 'kwm-offer-form',
@@ -19,12 +20,14 @@ export class OfferFormComponent implements OnInit {
   offerForm:FormGroup;
   meetingdates:FormArray;
   isUpdate = false;
+  option: any;
 
   constructor(
     private fb:FormBuilder,
     private ls:LearningofferService,
     private route:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    public authService:AuthenticationService,
   ) {
     this.offerForm = this.fb.group({});
     this.meetingdates = this.fb.array([]);
@@ -54,7 +57,7 @@ export class OfferFormComponent implements OnInit {
       meetingdates: this.meetingdates
     });
     console.log(this.offerForm);
-    this.offerForm.statusChanges.subscribe(() => this.updateErrorMessages());
+    //this.offerForm.statusChanges.subscribe(() => this.updateErrorMessages());
   }
 
   buildDatesArray() {
@@ -78,14 +81,12 @@ export class OfferFormComponent implements OnInit {
     }
   }
 
-  updateErrorMessages() {
-
-  }
-
   submitForm(){
     const offer = LearningofferFactory.fromObject(this.offerForm.value);
-    //offer.owner_id = ; //todo eingeloggter User
-    console.log(offer);
+    offer.owner_id = this.authService.getCurrentUserId();
+    offer.meetingdates = offer.meetingdates?.filter(function(md:any){
+      return md.day != null || md.from != null || md.to != null;
+    });
     //return null;
     if(this.isUpdate) {
       this.ls.update(offer).subscribe(result => {

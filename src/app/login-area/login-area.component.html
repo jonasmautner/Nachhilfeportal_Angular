@@ -1,20 +1,26 @@
 <div class="ui container Main">
   <div class="ui center aligned padded stackable grid">
     <div class="row">
-      <img src="{{authenticatedUser.imagepath}}"
+      <img *ngIf="authenticatedUser && authenticatedUser!= null" src="{{authenticatedUser.imagepath}}"
            alt="Bild von {{authenticatedUser.firstname}} {{authenticatedUser.lastname}}"
            style="border-radius: 100%;" width="100px">
     </div>
-    <p class="row">Sie sind angemeldet als {{authenticatedUser.firstname}} {{authenticatedUser.lastname}} ({{authenticatedUser.email}})</p>
+    <p *ngIf="authenticatedUser && authenticatedUser!= null" class="row">Sie sind angemeldet als
+      {{authenticatedUser.firstname}} {{authenticatedUser.lastname}} ({{authenticatedUser.email}})</p>
+    <div>
+      <i *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 1" class="icon binoculars" style="font-size: 2em;"></i>
+      <i *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0" class="icon graduation" style="font-size: 2em;"></i>
+      <h4 *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 1" class="Userrole_Label">Nachhilfesuchende/r</h4>
+      <h4 *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0" class="Userrole_Label">Nachhilfegebende/r</h4>
+    </div>
   </div>
   <div class="ui divider"></div>
-
-  <h2 class="ui header aligned center">Meine angebotenen Nachhilfen</h2>
+  <h2 *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0" class="ui header aligned center">Meine angebotenen Nachhilfen</h2>
+  <h2 *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 1" class="ui header aligned center">Meine angenommenen Nachhilfen</h2>
 
   <div class="LearningOffer_List"></div>
 
-  <div class="ui center aligned grid CreateOffer_Button">
-    <button class="ui button green"><i class="icon left add"></i>Angebot erstellen</button>
+  <div *ngIf="authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0" class="ui center aligned grid CreateOffer_Button">
+    <button routerLink="/../../offers/form" routerLinkActive="active" class="ui button green"><i class="icon left add"></i>Angebot erstellen</button>
   </div>
 </div>
-

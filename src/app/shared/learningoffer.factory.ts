@@ -6,8 +6,8 @@ export class LearningofferFactory {
   static empty():Learningoffer {
     return new Learningoffer(
       "0",
-      new User('', '', '', false),
-      new User('', '', '', false),
+      new User(1,'', '', '', false),
+      new User(1,'', '', '', false),
       new Subject("1", '', '', ''),
       null,
       new Date(),

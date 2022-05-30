@@ -28,7 +28,7 @@
         <p><b>Beschreibung</b><br>{{ offer.description }}</p>
       </div>
       <div class="three column row">
-        <div class="column">
+        <div class="ten wide column">
           <div>
             <p><b>Kontakt</b><br>
               <span>E-Mail: <a href="mailto:{{ offer.owner.email }}">{{ offer.owner.email }}</a><br></span>
@@ -44,11 +44,14 @@
             </p>
           </div>
         </div>
-        <div class="column"></div>
         <div class="column bottom aligned">
-          <a *ngIf="isLoggedIn()" [routerLink]="['/../offers/form', offer?.id]" class="ui button grey small"><i class="icon left edit"></i>Bearbeiten</a>
-          <a *ngIf="isLoggedIn()" (click)="removeOffer()" class="ui button red small"><i class="icon left delete"></i>Löschen</a>
-          <p class="LearningOffer_Accepted">
+          <a *ngIf="isLoggedIn() && authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 1 && offer.learner == null" (click)="acceptOffer(offer)"
+             class="ui button green small"><i class="icon left check circle outline"></i>Annehmen</a>
+          <a *ngIf="isLoggedIn() && authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0 && offer.owner.id == authenticatedUser.id && (offer.learner == null || offer.learner == undefined)" [routerLink]="['/../offers/form', offer?.id]"
+             class="ui button grey small"><i class="icon left edit"></i>Bearbeiten</a>
+          <a *ngIf="isLoggedIn() && authenticatedUser && authenticatedUser!= null && authenticatedUser.is_learner == 0 && offer.owner.id == authenticatedUser.id" (click)="removeOffer()"
+             class="ui button red small"><i class="icon left delete"></i>Löschen</a>
+          <p *ngIf="offer.learner != null || offer.learner != undefined" class="LearningOffer_Accepted">
             <i>Angebot angenommen<br>von {{ offer.learner?.firstname }} {{ offer.learner?.lastname }}<br>am {{ offer.accepted_at | date:'dd.MM.YYYY'}}</i>
           </p>
         </div>

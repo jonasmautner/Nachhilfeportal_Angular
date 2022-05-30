@@ -54,6 +54,11 @@
   width: 70%;
 }
 
+/* Form */
+.Radiobutton_Item {
+  margin-bottom: 0.7em;
+}
+
 /* Login */
 .LoginForm, .RegistrationForm, .CreateOfferForm, .EditOfferForm {
   padding: 2em 30% 2em 30% !important;
@@ -64,7 +69,6 @@
 .EditOfferForm * button.SubmitBtn {
   margin-top: 2em !important;
 }
-
 .AvailableDate {
   margin-bottom: 1em;
   display: flex;
@@ -74,6 +78,10 @@
 }
 
 /* Login Area */
+.Userrole_Label {
+  display: inline;
+  margin-left: 0.5em;
+}
 .CreateOffer_Button {
   margin-top: 3em !important;
 }
