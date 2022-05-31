@@ -40,7 +40,7 @@ export class LearningofferService {
       .pipe(catchError(this.errorHandler));
   }
 
-  create(offer:Learningoffer):Observable<any>{
+  create(offer:LearningofferObservable):Observable<any>{
     return this.http.post(`${this.api}/offers`, offer)
       .pipe(retry(3))
       .pipe(catchError(this.errorHandler));

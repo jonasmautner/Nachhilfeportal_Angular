@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/area', component: LoginAreaComponent, canActivate:[CanNavigateToAdminGuard] },
   { path: 'offers/:id', component: OfferDetailComponent },
-  { path: 'offers/form', component: OfferFormComponent, canActivate:[CanNavigateToAdminGuard] },
+  { path: 'offers-form', component: OfferFormComponent, canActivate:[CanNavigateToAdminGuard] },
   { path: 'offers/form/:id', component: OfferFormComponent, canActivate:[CanNavigateToAdminGuard] },
   { path: 'register', component: RegisterComponent },
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },

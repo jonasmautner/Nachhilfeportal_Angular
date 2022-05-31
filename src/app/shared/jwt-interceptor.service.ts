@@ -20,15 +20,17 @@ export class JwtInterceptorService implements HttpInterceptor{
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(tap((event:HttpEvent<any>) => {  // next handle = Outgoing des Requests -> liefert Observable (rxjs) -> Abfangen mit pipe
-        if(event instanceof HttpResponse){ // success 200
-
+        if(event instanceof HttpResponse){
+          // success 200
         }
       },
       (error:any) => {
         if (error instanceof HttpErrorResponse) { // error
           if(error.status === 401) {
-            console.log("fail");
             this.toastr.error("Benutzername oder Passwort falsch!", "Fehler");
+          }
+          if(error.status === 500) {
+            this.toastr.error("Token möglicherweise abgelaufen!", "Serverfehler");
           }
         }
       }));

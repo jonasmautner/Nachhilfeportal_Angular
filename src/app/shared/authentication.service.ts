@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { User } from "./user";
+import { ToastrService } from "ngx-toastr";
 
 
 interface Token {
@@ -22,6 +23,7 @@ export class AuthenticationService {
   constructor(
     private http:HttpClient,
     private router:Router,
+    private toastr:ToastrService
   ) {}
 
   login(email: string, password: string):Observable<any> {
@@ -46,6 +48,7 @@ export class AuthenticationService {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userId");
     this.router.navigate(['/']);
+    this.toastr.success("Sie wurden erfolgreich abgemeldet!");
   }
 
   public isLoggedIn() {

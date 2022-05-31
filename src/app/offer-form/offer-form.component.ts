@@ -56,7 +56,7 @@ export class OfferFormComponent implements OnInit {
       description: this.offer.description,
       meetingdates: this.meetingdates
     });
-    console.log(this.offerForm);
+    //console.log(this.offerForm);
     //this.offerForm.statusChanges.subscribe(() => this.updateErrorMessages());
   }
 
@@ -84,22 +84,32 @@ export class OfferFormComponent implements OnInit {
   submitForm(){
     const offer = LearningofferFactory.fromObject(this.offerForm.value);
     offer.owner_id = this.authService.getCurrentUserId();
+    console.log(offer.meetingdates);
     offer.meetingdates = offer.meetingdates?.filter(function(md:any){
       return md.day != null || md.from != null || md.to != null;
     });
+    console.log(offer.meetingdates);
+    //console.log(offer);
     //return null;
     if(this.isUpdate) {
       this.ls.update(offer).subscribe(result => {
         this.router.navigate(['../../../offers', offer.id], {relativeTo: this.route});
       });
     }
-    // else {
-    //   this.ls.create(offer).subscribe(result => {
-    //     this.offer = LearningofferFactory.empty(); // Formular zurücksetzen
-    //     this.offerForm.reset(LearningofferFactory.empty());
-    //     this.router.navigate(['../books'], {relativeTo: this.route});
-    //   });
-    // }
+    else {
+      this.ls.getAll().subscribe(result =>
+      {
+        if(result && result.length > 0){
+          offer.id = (++result.length).toString();
+        }
+      });
+      offer.created_at = new Date();
+      this.ls.create(offer).subscribe(result => {
+        this.offer = LearningofferFactory.empty();
+        this.offerForm.reset(LearningofferFactory.empty());
+        this.router.navigate(['../home'], {relativeTo: this.route});
+      });
+    }
   }
 
   addThumbnailControl() {
